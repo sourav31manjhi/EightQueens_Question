@@ -4,14 +4,17 @@ public class GameStrategy {
 
 	private int getColumn(int cellId) {
 		// WRITE YOUR LOGIC HERE...................................		
-
-		return 0;	// just for the heck of it
+		int column = cellId%8;
+		System.out.println("The cell id is :"+cellId);
+		System.out.println("The column is"+column);
+		return column;	// just for the heck of it
 	}
 	
 	private int getRow(int cellId) {
 		// WRITE YOUR LOGIC HERE....................................
-		
-		return 0;	// just for the heck of it
+		int row = (cellId/8);
+		System.out.println("The row is"+row);
+		return row;	// just for the heck of it
 	}
 
 	public boolean isValidPosition(int cellId) {
@@ -24,12 +27,41 @@ public class GameStrategy {
 		int col = getColumn(cellId);
 		
 		int row = getRow(cellId);
+		// for checking rows and columns
+		for(int i=0;i<8;i++)
+        {
+            for(int j=0;j<8;j++)
+            {
+                if(placedQueens[i][j]==true)
+                {
+                    if(col==j||row==i)
+                    {
+//                        System.out.println("Already present");
+                        isValid=false;
+                    }
+                }
+            }
+        }
+		//for checking diagonal
+		if(isValid==true) {
+			for(int p=0;p<8;p++){
+		        for(int q=0;q<8;q++){
+		        	
+		            if((placedQueens[p][q] == true ) && ((p+q == row+col) || (p-q == row-col))){
+		                isValid = false;
+		            }
+		        }
+		    }
+		}
 		
-		/*
-			WRITE YOUR LOGIC HERE...............................
-
-		*/
-		return isValid;
+		
+			//WRITE YOUR LOGIC HERE...............................
+		 if(isValid==true)
+	        {
+	            numQueens++;
+	            placedQueens[row][col]=true;
+	        }
+	     return isValid;
 	}
 }
 
